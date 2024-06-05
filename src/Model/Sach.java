@@ -1,6 +1,11 @@
 package Model;
 
 public class Sach {
+	@Override
+	public String toString() {
+		return "Sach [id=" + id + ", tenSach=" + tenSach + ", giaBan=" + giaBan + ", namXuatBan=" + namXuatBan + "]";
+	}
+
 	private String id, tenSach;
 	private float giaBan;
 	private int namXuatBan;

@@ -1,9 +1,13 @@
 package DataAccesObject;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import com.mysql.cj.protocol.Resultset;
+import com.mysql.cj.xdevapi.Result;
 
 import Database.JDBCUtil;
 import Model.Sach;
@@ -110,21 +114,124 @@ public class SachDAO implements DAOInterface<Sach> {
 	}
 
 	@Override
-	public ArrayList selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Sach> selectAll() {
+		ArrayList<Sach> ketqua = new ArrayList<Sach>() ; 
+		
+		try {
+			// b1 ket noi csdl 
+			Connection connect = JDBCUtil.getConnection();
+			
+			// b2 tao doi tuong statement
+			Statement st       = connect.createStatement();
+			
+			// b3 thuc thi cau lenh sql
+			String sql = "SELECT * FROM sach";
+			
+			// b4 kiem tra 
+		   ResultSet rs = st.executeQuery(sql);
+		   while(rs.next()) {
+			   String id = rs.getString("id");
+			   String tenSach = rs.getString("tenSach");
+			   float giaban  =  rs.getFloat("giaban");
+			   int namXuanBan = rs.getInt("namXuanBan");
+			   
+			   Sach sach = new Sach(id, tenSach, giaban, namXuanBan);
+			   ketqua.add(sach);
+		   }
+		   
+			
+			
+			// b5 dong csdl 
+			JDBCUtil.closeConnection(connect);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return ketqua;
 	}
 
 	@Override
 	public Sach selectById(Sach t) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Sach ketqua = null ;
+		
+		try {
+			// b1 ket noi csdl 
+			Connection connect = JDBCUtil.getConnection();
+			
+			// b2 tao doi tuong statement
+			Statement st       = connect.createStatement();
+			
+			// b3 thuc thi cau lenh sql
+			String sql = "SELECT *FROM sach "
+					    +"WHERE id='"+t.getId()+"'";
+			
+			// b4 kiem tra 
+		   ResultSet rs = st.executeQuery(sql);
+		   while(rs.next()) {
+			   String id = rs.getString("id");
+			   String tenSach = rs.getString("tenSach");
+			   float giaban  =  rs.getFloat("giaban");
+			   int namXuanBan = rs.getInt("namXuanBan");
+			   
+			   ketqua = new Sach(id, tenSach, giaban, namXuanBan);
+			   
+		   }
+		   
+			
+			
+			// b5 dong csdl 
+			JDBCUtil.closeConnection(connect);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return ketqua ; 
 	}
 
 	@Override
 	public ArrayList selectByCondition(String condition) {
-		// TODO Auto-generated method stub
-		return null;
+		
+           ArrayList<Sach> ketqua = new ArrayList<Sach>() ; 
+		
+		try {
+			// b1 ket noi csdl 
+			Connection connect = JDBCUtil.getConnection();
+			
+			// b2 tao doi tuong statement
+			Statement st       = connect.createStatement();
+			
+			// b3 thuc thi cau lenh sql
+			String sql = "SELECT * FROM sach WHERE " + condition;
+			System.out.println(sql);
+			// b4 kiem tra 
+		   ResultSet rs = st.executeQuery(sql);
+		   while(rs.next()) {
+			   String id = rs.getString("id");
+			   String tenSach = rs.getString("tenSach");
+			   float giaban  =  rs.getFloat("giaban");
+			   int namXuanBan = rs.getInt("namXuanBan");
+			   
+			   Sach sach = new Sach(id, tenSach, giaban, namXuanBan);
+			   ketqua.add(sach);
+		   }
+		   
+			
+			
+			// b5 dong csdl 
+			JDBCUtil.closeConnection(connect);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return ketqua;
 	}
 
 }
