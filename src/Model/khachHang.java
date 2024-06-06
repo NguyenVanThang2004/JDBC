@@ -3,6 +3,11 @@ package Model;
 import java.sql.Date;
 
 public class khachHang {
+	@Override
+	public String toString() {
+		return "khachHang [id=" + id + ", hoTen=" + hoTen + ", ngaySinh=" + ngaySinh + ", diaChi=" + diaChi + "]";
+	}
+
 	private int id;
 	private String hoTen;
 	private Date ngaySinh;
